@@ -5,10 +5,11 @@ on:
     branches:
       - main
       - master
+  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -23,21 +24,20 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-          cache: gradle
 
-      - name: Setup Gradle
+      - name: Setup Gradle 8.10
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10'
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
+      - name: Verify Java
+        run: java -version
+
+      - name: Verify Gradle
+        run: gradle --version
 
       - name: Build
-        run: ./gradlew clean build --no-daemon
-
-      - name: Find JAR
-        run: |
-          echo "=== BUILD OUTPUT ==="
-          find build/libs -type f -name "*.jar" -print
+        run: gradle clean build --no-daemon
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
