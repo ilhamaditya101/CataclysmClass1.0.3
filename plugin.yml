@@ -1,0 +1,20 @@
+name: CataclysmClass
+version: 1.0.3
+main: com.cataclysm.classplugin.CataclysmClassPlugin
+api-version: '1.20'
+author: CataclysmClass
+
+depend:
+  - LuckPerms
+
+commands:
+  class:
+    description: Open Cataclysm Class menu
+    usage: /class
+  cclass:
+    description: CataclysmClass admin command
+    usage: /cclass <reload|reset|edit>
+
+permissions:
+  cataclysmclass.admin:
+    default: op
